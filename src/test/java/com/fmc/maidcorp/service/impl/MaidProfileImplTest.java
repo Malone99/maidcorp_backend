@@ -1,0 +1,52 @@
+package com.fmc.maidcorp.service.impl;
+
+import com.fmc.maidcorp.domain.Address;
+import com.fmc.maidcorp.domain.MaidProfile;
+import com.fmc.maidcorp.factory.AddressFactory;
+import com.fmc.maidcorp.factory.MaidProfileFactory;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Date;
+import java.util.List;
+
+@SpringBootTest
+@TestMethodOrder(MethodOrderer.MethodName.class)
+class MaidProfileImplTest {
+
+    Address addressSet2= AddressFactory.build("Fame Cresent","Cape Town", "Western Cape");
+    Address addressSet= AddressFactory.build("Arnoldo","Durben", "Free  State");
+
+    MaidProfile test= MaidProfileFactory.build("Faith", "","Johnson"
+            ,new Date(), addressSet);
+    MaidProfile test2= MaidProfileFactory.build("Faith", "","Johnson"
+            ,new Date(),addressSet2);
+    @Autowired
+       private MaidProfileServiceImpl service;
+
+    @Test
+    void a_save() {
+        MaidProfile save =service.save(test);
+        MaidProfile save2 =service.save(test2);
+
+        System.out.println(save.toString());
+    }
+
+    @Test
+    void read() {
+    }
+
+//    @Test
+//    void b_delete() {
+//        service.delete(2L);
+//    }
+
+    @Test
+    void b_findAll() {
+        List<MaidProfile> all=service.findAll();
+        System.out.println(all.toString());
+    }
+}
