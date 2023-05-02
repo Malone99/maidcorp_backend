@@ -50,6 +50,12 @@ public class MaidProfileServiceImpl implements MaidProfileSevice {
 
     public List<MaidProfileDto> getAll(){return  repository.getAllDto();}
 
+    public List<MaidProfile> findBySurname(String surname ){
+
+        List <MaidProfile> maids=this.repository.findMaidProfileByLastNameContainsIgnoreCase(surname);
+       return maids;
+    }
+
     @Override
     public MaidProfile update(MaidProfile update) {
         return repository.save(update);

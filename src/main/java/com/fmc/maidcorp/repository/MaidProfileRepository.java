@@ -15,5 +15,7 @@ select new com.fmc.maidcorp.dto.MaidProfileDto(md.id, md.firstName, md.middleNam
 """)
     List<MaidProfileDto> getAllDto();
 
+    List<MaidProfile> findMaidProfileByLastNameContainsIgnoreCase(String surname);
+
 
 }

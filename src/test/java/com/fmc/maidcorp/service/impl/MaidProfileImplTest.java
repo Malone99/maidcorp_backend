@@ -19,11 +19,13 @@ class MaidProfileImplTest {
 
     Address addressSet2= AddressFactory.build("Fame Cresent","Cape Town", "Western Cape");
     Address addressSet= AddressFactory.build("Arnoldo","Durben", "Free  State");
-
+    Address addressSet3= AddressFactory.build("Broadway Bulavard","Strand", "Northern  State");
     MaidProfile test= MaidProfileFactory.build("Faith", "","Johnson"
             ,new Date(), addressSet);
-    MaidProfile test2= MaidProfileFactory.build("Faith", "","Johnson"
+    MaidProfile test2= MaidProfileFactory.build("Faith", "","Jackson"
             ,new Date(),addressSet2);
+    MaidProfile test3= MaidProfileFactory.build("Diana", "Fungai","Chawora"
+            ,new Date(),addressSet3);
     @Autowired
        private MaidProfileServiceImpl service;
 
@@ -31,6 +33,7 @@ class MaidProfileImplTest {
     void a_save() {
         MaidProfile save =service.save(test);
         MaidProfile save2 =service.save(test2);
+        MaidProfile save3 =service.save(test3);
 
         System.out.println(save.toString());
     }

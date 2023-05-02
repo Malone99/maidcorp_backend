@@ -5,12 +5,11 @@ import com.fmc.maidcorp.domain.MaidProfile;
 import com.fmc.maidcorp.dto.MaidProfileDto;
 import com.fmc.maidcorp.service.impl.MaidProfileServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -34,6 +33,28 @@ public class MaidController {
         List<MaidProfile> maids=maidService.findAll();
         return ResponseEntity.ok(maids);
     }
+
+    @GetMapping("read/{id}")
+    public ResponseEntity<MaidProfile> read(@PathVariable Long id){
+        MaidProfile maid =maidService.read(id).orElseThrow(
+                ()->new ResponseStatusException(HttpStatus.NOT_FOUND)
+        );
+        return ResponseEntity.ok(maid);
+    }
+
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long  id){
+        this.maidService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("searchName/{surname}")
+    public  ResponseEntity<List<MaidProfile>> findSurname(@PathVariable String surname){
+        List<MaidProfile> allMaids=maidService.findBySurname(surname);
+        return ResponseEntity.ok(allMaids);
+    }
+
     @GetMapping("getAll")
     public  ResponseEntity<List<MaidProfileDto>> getAll(){
         List<MaidProfileDto> allMaids=maidService.getAll();
