@@ -1,2 +1,6 @@
-package com.fmc.maidcorp.user;public enum AppUserRole {
+package com.fmc.maidcorp.user;
+
+public enum AppUserRole {
+
+    ADMIN,USER,
 }
