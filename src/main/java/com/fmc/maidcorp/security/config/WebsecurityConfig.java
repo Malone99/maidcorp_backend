@@ -43,14 +43,6 @@ public class WebsecurityConfig  {
                 ).build();
     }
 
-//    protected void configure (AuthenticationManagerBuilder auth) throws Exception{
-//        auth.authenticationProvider(daoAuthenticationProvider());
-//    }
-//    @Bean
-//    @Primary
-//    AuthenticationManagerBuilder authenticationManager(AuthenticationManagerBuilder builder) throws Exception {
-//        return builder.authenticationProvider(daoAuthenticationProvider());
-//    }
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(){
         DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
