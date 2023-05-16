@@ -1,6 +1,5 @@
 package com.fmc.maidcorp.controller;
 
-import com.fmc.maidcorp.domain.Address;
 import com.fmc.maidcorp.domain.MaidProfile;
 import com.fmc.maidcorp.dto.MaidProfileDto;
 import com.fmc.maidcorp.service.impl.MaidProfileServiceImpl;
@@ -18,9 +17,11 @@ import java.util.List;
 public class MaidController {
 
     final MaidProfileServiceImpl maidService;
+    final APi api;
     @Autowired
-    public MaidController(MaidProfileServiceImpl maidService) {
+    public MaidController(MaidProfileServiceImpl maidService, APi api) {
         this.maidService = maidService;
+        this.api = api;
     }
 
     @PostMapping("save")
@@ -39,6 +40,11 @@ public class MaidController {
         MaidProfile maid =maidService.read(id).orElseThrow(
                 ()->new ResponseStatusException(HttpStatus.NOT_FOUND)
         );
+        return ResponseEntity.ok(maid);
+    }
+    @GetMapping("assign/{ID}/{id}")
+    public ResponseEntity<String> assign(@PathVariable Long ID, @PathVariable Long id){
+        String maid =api.assignAddress(ID,id);
         return ResponseEntity.ok(maid);
     }
 

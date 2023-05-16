@@ -15,4 +15,12 @@ spring:
   graphql:
     cors:
       allowed-origins: http://localhost:3000/
+#  security:
+#    user:
+#      name: farai
+#      password: farai
+#security:
+#  basic:
+#    enabled: false
+
 

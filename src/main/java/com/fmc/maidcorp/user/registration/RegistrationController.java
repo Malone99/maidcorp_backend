@@ -1,24 +1,27 @@
 package com.fmc.maidcorp.user.registration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("maidcorp/api/registration/")
+@CrossOrigin
+@RequestMapping("maidcorp/api/")
 public class RegistrationController {
-
 
     final RegistrationService registrationService;
     @Autowired
     public RegistrationController(RegistrationService registrationService) {
         this.registrationService = registrationService;
+
     }
-@GetMapping("register")
-    public String register(@RequestBody UserRegistration registration){
-        return registrationService.register(registration);
+@PostMapping("reg")
+    public ResponseEntity<String> register(@RequestBody UserRegistration registration){
+    System.out.println("Registartion end point hit"+registration.toString());
+       String reg= registrationService.register(registration);
+        return  ResponseEntity.ok(reg);
     }
 }
