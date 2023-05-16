@@ -26,8 +26,8 @@ public  class RegistrationService {
                 new AppUser(
                         request.getFirstName(),
                         request.getLastName(),
-                        request.getPassword(),
                         request.getEmail(),
+                        request.getPassword(),
                         AppUserRole.USER
                 )
         );
@@ -42,7 +42,6 @@ public  class RegistrationService {
         if(confirmationToken.getConfirmedAt()!=null){
             throw new IllegalStateException("email already confirmed");
         }
-
        return "";
     }
 }

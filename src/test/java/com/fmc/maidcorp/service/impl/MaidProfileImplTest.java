@@ -50,6 +50,6 @@ class MaidProfileImplTest {
     @Test
     void b_findAll() {
         List<MaidProfile> all=service.findAll();
-        System.out.println(all.toString());
+        System.out.println(all);
     }
 }

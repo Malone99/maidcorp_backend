@@ -1,11 +1,13 @@
 package com.fmc.maidcorp.service.impl;
 
 import com.fmc.maidcorp.domain.Address;
+import com.fmc.maidcorp.dto.ClientDto;
 import com.fmc.maidcorp.repository.AddressRepository;
 import com.fmc.maidcorp.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,6 +28,7 @@ public class AddressServiceImpl implements AddressService {
         Optional<Address> read= repository.findById(id);
         return read;
     }
+
 
 
     @Override

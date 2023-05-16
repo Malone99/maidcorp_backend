@@ -33,6 +33,7 @@ public class WebsecurityConfig  {
                                         .anyRequest()
                                         .authenticated()
                                         .and()
+                                        .authenticationProvider(daoAuthenticationProvider())
                                         .formLogin(
                                         );
                             } catch (Exception e) {
@@ -45,13 +46,11 @@ public class WebsecurityConfig  {
 //    protected void configure (AuthenticationManagerBuilder auth) throws Exception{
 //        auth.authenticationProvider(daoAuthenticationProvider());
 //    }
-    @Bean
-    @Primary
-    AuthenticationManagerBuilder authenticationManager(AuthenticationManagerBuilder builder) throws Exception {
-        return builder.authenticationProvider(daoAuthenticationProvider());
-    }
-
-
+//    @Bean
+//    @Primary
+//    AuthenticationManagerBuilder authenticationManager(AuthenticationManagerBuilder builder) throws Exception {
+//        return builder.authenticationProvider(daoAuthenticationProvider());
+//    }
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(){
         DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
@@ -59,6 +58,4 @@ public class WebsecurityConfig  {
          provider.setUserDetailsService(userAppService);
          return provider;
     }
-
-
 }
