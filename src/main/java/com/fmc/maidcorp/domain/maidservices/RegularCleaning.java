@@ -21,4 +21,8 @@ public class RegularCleaning implements Serializable {
     @Column
     private double fee;
 
+    public RegularCleaning(String description, double fee) {
+        this.description = description;
+        this.fee = fee;
+    }
 }

@@ -14,6 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("maidcorp/api/")
+@CrossOrigin
 public class MaidController {
 
     final MaidProfileServiceImpl maidService;

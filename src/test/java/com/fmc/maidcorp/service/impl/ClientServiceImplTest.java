@@ -31,7 +31,7 @@ class ClientServiceImplTest {
     void addtolist(){
         addresses.add(addressSet);
         addresses.add(addressSet2);
-        client= ClientFactory.build("Farai","Mirone","manu@gmail.com", addresses,new RegularCleaning(),new SpringCleaning());
+        client= ClientFactory.build("Farai","Mirone","manu@gmail.com", addresses,new RegularCleaning("Regular Cleaning",2450),new SpringCleaning());
 
     }
 

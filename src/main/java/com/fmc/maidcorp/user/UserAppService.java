@@ -1,7 +1,9 @@
 package com.fmc.maidcorp.user;
 
+import com.fmc.maidcorp.email.EmailSenderService;
 import com.fmc.maidcorp.user.registration.token.ConfirmationToken;
 import com.fmc.maidcorp.user.registration.token.ConfirmationTokenService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,11 +23,13 @@ public class UserAppService implements UserDetailsService {
 
     final AppUserRepository appUserRepository;
     private  final ConfirmationTokenService confirmationTokenService;
+    private final EmailSenderService emailSenderService;
    @Autowired
-    public UserAppService(BCryptPasswordEncoder bCryptPasswordEncoder, AppUserRepository appUserRepository, ConfirmationTokenService confirmationTokenService) {
+    public UserAppService(BCryptPasswordEncoder bCryptPasswordEncoder, AppUserRepository appUserRepository, ConfirmationTokenService confirmationTokenService, EmailSenderService emailSenderService) {
        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
        this.appUserRepository = appUserRepository;
        this.confirmationTokenService = confirmationTokenService;
+       this.emailSenderService = emailSenderService;
    }
 
     @Override
@@ -36,6 +40,7 @@ public class UserAppService implements UserDetailsService {
                                 .format(USER_NOT_FOUND_MSG,email)));
     }
 
+    @SneakyThrows
     public String signUpUser (AppUser appUser){
        boolean userExits=appUserRepository.findByEmail(appUser.getEmail()).isPresent();
        if(userExits){
@@ -52,6 +57,13 @@ public class UserAppService implements UserDetailsService {
                 token, LocalDateTime.now(), LocalDateTime.now().minusMinutes(15),appUser
         );
         confirmationTokenService.saveConfirmationToken(confirmationToken);
+        String link=" https://spring.io/projects/spring-boot";
+        emailSenderService.sendVericationEmail(appUser.getEmail(),link);
        return token;
     }
+
+//    public String forgetPassword( String email){
+//
+//
+//    }
 }
