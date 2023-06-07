@@ -39,6 +39,18 @@ public class EmailSenderService implements  EmailSender{
 
 
     }
+    public void changePasswdEmail(String to, String username) throws IOException, MessagingException {
+        String subject= "Email Verification ";
+        StringBuilder bb=new StringBuilder();
+        bb= new StringBuilder(emailBuilder.buildEmailTemplate("resetPassword.html"));
+        bb.append(username);
+        String body= String.valueOf(bb);
+
+        sendEmail(to, subject, body);
+        System.out.println("email-->"+ body);
+
+
+    }
 
     @Override
     public void sendEmail(String to, String subject, String body) throws IOException, MessagingException {

@@ -3,6 +3,7 @@ package com.fmc.maidcorp.user;
 import com.fmc.maidcorp.email.EmailSenderService;
 import com.fmc.maidcorp.user.registration.token.ConfirmationToken;
 import com.fmc.maidcorp.user.registration.token.ConfirmationTokenService;
+import jakarta.mail.MessagingException;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -62,8 +64,28 @@ public class UserAppService implements UserDetailsService {
        return token;
     }
 
-//    public String forgetPassword( String email){
-//
-//
-//    }
+    @SneakyThrows
+    public String changePassword(String email, String newPassword) throws MessagingException, IOException {
+        AppUser changePassword= (AppUser)loadUserByUsername(email);
+        try {
+            emailSenderService.changePasswdEmail(changePassword.getEmail(),changePassword.getUsername());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        if (changePassword!=null)
+            changePassword.setPassword(newPassword);
+            String encodedPassword=bCryptPasswordEncoder.encode(changePassword.getPassword());
+            changePassword.setPassword(encodedPassword);
+            appUserRepository.save(changePassword);
+            System.out.println("password changed"+ changePassword.toString());
+
+
+
+        return "password changed";
+    }
+
 }
