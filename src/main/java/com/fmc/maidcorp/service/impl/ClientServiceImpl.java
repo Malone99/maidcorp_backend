@@ -3,22 +3,40 @@ package com.fmc.maidcorp.service.impl;
 import com.fmc.maidcorp.domain.Client;
 import com.fmc.maidcorp.domain.maidservices.SpringCleaning;
 import com.fmc.maidcorp.dto.ClientDto;
+import com.fmc.maidcorp.helper.ObjectValidator;
 import com.fmc.maidcorp.repository.ClientRepository;
 import com.fmc.maidcorp.service.ClientService;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 @Service
-@AllArgsConstructor
+
 public class ClientServiceImpl implements ClientService {
-    @Autowired
+
     private final ClientRepository clientRepository;
+
+    private  final ObjectValidator<Client> validator;
+
+    public ClientServiceImpl(ClientRepository clientRepository, ObjectValidator<Client> validator) {
+        this.clientRepository = clientRepository;
+        this.validator = validator;
+    }
+
     @Override
     public Client save(Client client) {
+
         return clientRepository.save(client);
+    }
+
+    public String saveClient(Client client) {
+        var violation=validator.validator(client);
+        if (!violation.isEmpty())
+        {
+            return String.join("\n",violation);
+        }
+        Client save = clientRepository.save(client);
+        return String.format(" saved--> %s", save.getFirstName());
     }
     @Override
     public Optional<Client> read(Long id) {

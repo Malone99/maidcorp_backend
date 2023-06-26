@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ClientServiceImplTest {
 
     Client client;
-    Client client2=ClientFactory.build("Manu","Bubu","manu@gmail.com", new ArrayList<>(),new RegularCleaning(),new SpringCleaning());
+    Client client2=ClientFactory.build("","Bubu","manu@gmail.com", new ArrayList<>(),new RegularCleaning(),new SpringCleaning());
 
     Address addressSet2= AddressFactory.build("Fame Cresent","Cape Town", "Western Cape");
     Address addressSet= AddressFactory.build("Arnoldo","Durben", "Free  State");
@@ -46,8 +46,9 @@ class ClientServiceImplTest {
     @Test
     void save() {
          addtolist();
-        Client save= clientService.save(client);
-        clientService.save(client2);
+//        Client save= clientService.save(client);
+        System.out.println(clientService.saveClient(client2));
+
     }
 
     @Test

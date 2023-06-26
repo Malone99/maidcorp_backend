@@ -2,6 +2,7 @@ package com.fmc.maidcorp.controller;
 
 import com.fmc.maidcorp.domain.MaidProfile;
 import com.fmc.maidcorp.dto.MaidProfileDto;
+import com.fmc.maidcorp.exception.ApiRequestException;
 import com.fmc.maidcorp.service.impl.MaidProfileServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,8 @@ import java.util.List;
 @CrossOrigin
 public class MaidController {
 
-    final MaidProfileServiceImpl maidService;
-    final APi api;
+    public final MaidProfileServiceImpl maidService;
+    public final APi api;
     @Autowired
     public MaidController(MaidProfileServiceImpl maidService, APi api) {
         this.maidService = maidService;
@@ -64,7 +65,8 @@ public class MaidController {
 
     @GetMapping("getAll")
     public  ResponseEntity<List<MaidProfileDto>> getAll(){
-        List<MaidProfileDto> allMaids=maidService.getAll();
-        return ResponseEntity.ok(allMaids);
+        throw  new ApiRequestException("bad request");
+//        List<MaidProfileDto> allMaids=maidService.getAll();
+//        return ResponseEntity.ok(allMaids);
     }
 }

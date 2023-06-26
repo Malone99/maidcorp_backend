@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 @Service
 @Slf4j
@@ -37,7 +38,7 @@ public class MaidProfileServiceImpl implements MaidProfileSevice {
     public void delete(Long ID) {
         Optional <MaidProfile> read=read(ID);
         if (!(read.isPresent())){
-            throw  new IllegalArgumentException("ID does not exist in the database");
+            throw  new NoSuchElementException("ID does not exist in the database");
         }else
         repository.deleteById(ID);
 

@@ -18,9 +18,9 @@ public class ClientFactory {
              ,RegularCleaning regularCleaning
              ,SpringCleaning springCleaning){
 
-        Helper.check(firstName);
-        Helper.check(lastName);
-        Helper.check(email);
+//        Helper.check(firstName);
+//        Helper.check(lastName);
+//        Helper.check(email);
 
         return Client.builder()
                 .firstName(firstName)
